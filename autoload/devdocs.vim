@@ -25,7 +25,7 @@ function! s:related_to(ft) abort
 endfunction
 
 function! s:open_fallback(url) abort
-    let url = shellescape(url)
+    let url = shellescape(a:url)
     if s:IS_UNIX
         if executable('xdg-open')
             call system('xdg-open ' . url)
@@ -43,6 +43,8 @@ function! s:open_fallback(url) abort
     endif
     if v:shell_error
         echoerr 'Error on opening URL: ' . url
+    else
+        echo 'Page opened: ' . url
     endif
 endfunction
 
