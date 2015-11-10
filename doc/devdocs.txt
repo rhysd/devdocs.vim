@@ -1,0 +1,172 @@
+*devdocs.vim*           Open devdocs from Vim
+
+Author : rhysd <lin90162@yahoo.co.jp>
+Version : 0.1
+
+CONTENTS                *devdocs.vim-contents*
+
+Introduction            |devdocs.vim-introduction|
+Install                 |devdocs.vim-install|
+Command                 |devdocs.vim-command|
+Mapping                 |devdocs.vim-mapping|
+Variables               |devdocs.vim-variables|
+Repository              |devdocs.vim-repository-page|
+License                 |devdocs.vim-lisence|
+
+==============================================================================
+INTRODUCTION                                          *devdocs.vim-introduction*
+
+|devdocs.vim| is a Vim plugin for http://devdocs.io, which is an awesome
+multiple API documentation service.  You can open and search devdocs from Vim.
+
+- Open and search devdocs using command |:DevDocs| or |:DevDocsAll|.
+- Relate filetypes to specific documentation.
+- Search word under the cursor.
+
+
+==============================================================================
+INSTALL                                                    *devdocs.vim-install*
+
+If you don't use any plugin manager, copy all files in autoload/ and plugin/
+to your .vim directory.
+
+If you use a plugin manager, please follow the instruction of it to install
+|devdocs.vim| from https://github.com/rhysd/devdocs.vim.
+
+
+==============================================================================
+COMMAND                                                    *devdocs.vim-command*
+
+------------------------------------------------------------------------------
+:DevDocs [{query}]                                                    *:DevDocs*
+
+    It opens a page of devdocs and shows the result of query in the page.  You
+    can continue the search incrementally after the page is opened.
+    If query is omitted, no query is set initially.
+
+    If current buffer's filetype is related to some documentation, the
+    documentation is selected as source in the page by default.
+
+------------------------------------------------------------------------------
+:DevDocsAll [{query}]                                              *:DevDocsAll*
+
+    This is the same as |:DevDocs| execpt for the point that it always uses
+    all documentation.
+
+    Even if current buffer's filetype is related to some documentation, it
+    uses all documentation.
+
+
+==============================================================================
+MAPPING                                                    *devdocs.vim-mapping*
+
+------------------------------------------------------------------------------
+<Plug>(devdocs-under-cursor)
+
+    It searches the word under the cursor with devdocs. Overriding |K| mapping
+    may be useful.
+>
+        augroup plugin-devdocs
+        autocmd!
+        autocmd FileType c,cpp,rust,haskell,python]
+                    \ nmap <buffer>K <Plug>(devdocs-under-cursor)
+        augroup END
+<
+    Above config overrides |K| on C, C++, Rust, Haskell and Python.
+
+------------------------------------------------------------------------------
+<Plug>(devdocs-under-cursor-all)
+
+    This is the same as <Plug>(devdocs-under-cursor) execpt for the point that
+    it always uses all documentation.
+
+
+==============================================================================
+VARIABLES                                                *devdocs.vim-variables*
+
+------------------------------------------------------------------------------
+g:devdocs_filetype_map                                  *g:devdocs_filetype_map*
+
+    It defines the relationships between filetypes and documentation.
+    |devdocs.vim| defines some relationships by default.  The default value is
+    below.
+>
+        {
+        \   'c': 'c',
+        \   'cpp': 'cpp',
+        \   'clojure': 'clojure',
+        \   'css': 'css',
+        \   'go': 'go',
+        \   'haskell': 'haskell',
+        \   'rust': 'rust',
+        \   'php': 'php',
+        \   'python': 'python',
+        \ }
+<
+    If you define |g:devdocs_filetype_map| as the map from filetype to
+    documentation name, it overrides above default configuration.
+>
+        let g:devdocs_filetype_map = {
+            \   'ruby': 'rails',
+            \   'javascript.jsx': 'react',
+            \   'javascript.test': 'chai',
+            \ }
+<
+
+    Special key "*" means "all documentation".  Below means disabling all
+    relationships.
+>
+        let g:devdocs_filetype_map = { '*': '' }
+<
+
+------------------------------------------------------------------------------
+g:devdocs_host                                                  *g:devdocs_host*
+
+    It defines the host of devdocs.  It is useful when you install devdocs
+    locally.  It is very easy to install devdocs to your own environment.
+    Please read the README in https://github.com/Thibaut/devdocs .
+
+    The default value is "devdocs.io" and you can customize it as below.
+>
+        let g:devdocs_host = 'localhost:9292'
+<
+
+==============================================================================
+REPOSITORY PAGE                                    *devdocs.vim-repository-page*
+
+The repository of |devdocs.vim| is hosted in GitHub.
+
+https://github.com/rhysd/devdocs.vim
+
+If you've found a bug or have some questions, do not hesitate to open an
+issue.
+
+
+==============================================================================
+LICENSE                                                    *devdocs.vim-license*
+
+|devdocs| is distributed under The MIT license.
+
+  Copyright (c) 2015 rhysd
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+==============================================================================
+vim:tw=78:colorcolumn=78:ts=8:ft=help:norl:et:fen:fdl=0:
