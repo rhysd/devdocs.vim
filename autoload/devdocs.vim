@@ -1,0 +1,69 @@
+let s:save_cpo = &cpo
+set cpo&vim
+
+let s:V = vital#of('devdocs')
+let s:URI = s:V.import('Web.URI')
+
+let s:DEFAULT_FILETYPE_MAP = {
+            \   'c': 'c',
+            \   'cpp': 'cpp',
+            \   'clojure': 'clojure',
+            \   'coffee': 'coffeescript',
+            \   'css': 'css',
+            \   'go': 'go',
+            \   'less': 'less',
+            \   'html': 'html',
+            \   'haskell': 'haskell',
+            \   'javascript': 'javascript',
+            \   'ruby': 'ruby',
+            \   'rust': 'rust',
+            \   'markdown': 'markdown',
+            \   'php': 'php',
+            \   'python': 'python',
+            \ }
+
+let s:filetype_map = extend(copy(s:DEFAULT_FILETYPE_MAP), g:devdocs_filetype_map)
+
+function! s:open_fallback(url) abort
+    " TODO
+    echoerr 'Currently devdocs.vim depends on open-browser.vim.  Fallback will be implemented for this.'
+endfunction
+
+function! s:build_query(query, doc) abort
+    let query = a:query
+    if a:doc !=# ''
+        let query = a:doc . ' ' . query
+    endif
+    return s:URI.encode(query)
+endfunction
+
+"
+" devdocs#url(query?: string, filetype?: string): string
+"
+function! devdocs#url(...) abort
+    let url = 'http://' . g:devdocs_host
+    if a:0 == 0
+        return url
+    endif
+
+    let query = a:1
+    let ft = a:0 > 1 ? a:2 : '_'
+    let doc = get(s:filetype_map, ft, '')
+
+    return url . '/#q=' . s:build_query(query, doc)
+endfunction
+
+"
+" devdocs#open(query?: string, filetype?: string): void
+"
+function! devdocs#open(...) abort
+    let url = call('devdocs#url', a:000)
+    try
+        call openbrowser#open(url)
+    catch /^Vim\%((\a\+)\)\=:E117/
+        call s:open_fallback(url)
+    endtry
+endfunction
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
