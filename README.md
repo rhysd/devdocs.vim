@@ -7,6 +7,11 @@ This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome mult
 - Relate filetype to specific documentation.
 - Search word under the cursor.
 
+## Usage
+
+- `:DevDocs [query]` : Search with query with filetype related documentation (`query` can be omitted)
+- `:DevDocsAll [query]` : Search with query with all documentation (`query` can be omitted)
+
 ## Cusomize
 
 ### Mapping `K` to search under the word quickly
