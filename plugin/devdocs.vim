@@ -10,7 +10,7 @@ command! -nargs=* DevDocsAll call devdocs#open(<q-args>)
 command! -nargs=0 DevDocsUnderCursor call devdocs#open(<cword>, &l:ft)
 command! -nargs=0 DevDocsAllUnderCursor call devdocs#open(<cword>)
 
-nnoremap <silent><Plug>(devdocs-open-under-cursor) :<C-u>call devdocs#open(expand('<cword>', &l:ft))<CR>
-nnoremap <silent><Plug>(devdocs-open-under-cursor-all) :<C-u>call devdocs#open(expand('<cword>'))<CR>
+nnoremap <silent><Plug>(devdocs-under-cursor) :<C-u>call devdocs#open(expand('<cword>', &l:ft))<CR>
+nnoremap <silent><Plug>(devdocs-under-cursor-all) :<C-u>call devdocs#open(expand('<cword>'))<CR>
 
 let g:loaded_devdocs = 1

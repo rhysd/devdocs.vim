@@ -59,6 +59,23 @@ You can easily [host local devdocs](https://github.com/Thibaut/devdocs#quick-sta
 let g:devdocs_host = 'localhost:9292'
 ```
 
+### Make a command for specific document
+
+You can use `devdocs#open_doc()` function to make such a command.
+
+Below is an example for `:DevDocsReact` command to open page with 'react' documentation
+
+```vim
+command! -nargs=* DevDocsReact call devdocs#open_doc(<q-args>, 'react')
+```
+
+You can execute as below,
+
+```
+:DevDocsReact
+:DevDocsReact componentDidMount
+```
+
 ## License
 
 ```

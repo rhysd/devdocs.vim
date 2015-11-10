@@ -44,28 +44,38 @@ function! s:open_fallback(url) abort
     endif
 endfunction
 
-function! s:build_query(query, doc) abort
+function! s:doc_url(base_url, doc_name) abort
+    return printf('%s/%s/', a:base_url, s:URI.encode(a:doc_name))
+endfunction
+
+function! s:query_url(base_url, query, doc) abort
     let query = a:query
     if a:doc !=# ''
         let query = a:doc . ' ' . query
     endif
-    return s:URI.encode(query)
+    return a:base_url . '/#q=' . s:URI.encode(query)
+endfunction
+
+function! s:build_url(query, doc) abort
+    let url = 'http://' . g:devdocs_host
+    if a:query ==# ''
+        if a:doc ==# ''
+            return url
+        endif
+        return s:doc_url(url, a:doc)
+    else
+        return s:query_url(url, a:query, a:doc)
+    endif
 endfunction
 
 "
 " devdocs#url(query?: string, filetype?: string): string
 "
 function! devdocs#url(...) abort
-    let url = 'http://' . g:devdocs_host
-    if a:0 == 0
-        return url
-    endif
-
-    let query = a:1
-    let ft = a:0 > 1 ? a:2 : '_'
+    let query = get(a:, 1, '')
+    let ft =  get(a:, 2, '_')
     let doc = get(s:filetype_map, '*', get(s:filetype_map, ft, ''))
-
-    return url . '/#q=' . s:build_query(query, doc)
+    return s:build_url(query, doc)
 endfunction
 
 "
@@ -73,6 +83,18 @@ endfunction
 "
 function! devdocs#open(...) abort
     let url = call('devdocs#url', a:000)
+    try
+        call openbrowser#open(url)
+    catch /^Vim\%((\a\+)\)\=:E117/
+        call s:open_fallback(url)
+    endtry
+endfunction
+
+"
+" devdocs#open_doc(query?: string, doc_name?: string): void
+"
+function! devdocs#open_doc(...) abort
+    let url = s:build_url(get(a:, 1, ''), get(a:, 2, ''))
     try
         call openbrowser#open(url)
     catch /^Vim\%((\a\+)\)\=:E117/
