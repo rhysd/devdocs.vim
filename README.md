@@ -1,5 +1,6 @@
 devdocs.vim
 ===========
+[![Build Status](https://travis-ci.org/rhysd/devdocs.vim.svg)](https://travis-ci.org/rhysd/devdocs.vim)
 
 This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome multiple API documentation service.  You can open and search devdocs from Vim.
 
