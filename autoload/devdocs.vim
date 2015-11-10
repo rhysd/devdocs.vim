@@ -12,16 +12,10 @@ let s:DEFAULT_FILETYPE_MAP = {
             \   'c': 'c',
             \   'cpp': 'cpp',
             \   'clojure': 'clojure',
-            \   'coffee': 'coffeescript',
             \   'css': 'css',
             \   'go': 'go',
-            \   'less': 'less',
-            \   'html': 'html',
             \   'haskell': 'haskell',
-            \   'javascript': 'javascript',
-            \   'ruby': 'ruby',
             \   'rust': 'rust',
-            \   'markdown': 'markdown',
             \   'php': 'php',
             \   'python': 'python',
             \ }
@@ -69,7 +63,7 @@ function! devdocs#url(...) abort
 
     let query = a:1
     let ft = a:0 > 1 ? a:2 : '_'
-    let doc = get(s:filetype_map, ft, '')
+    let doc = get(s:filetype_map, '*', get(s:filetype_map, ft, ''))
 
     return url . '/#q=' . s:build_query(query, doc)
 endfunction
