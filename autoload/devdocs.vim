@@ -20,7 +20,9 @@ let s:DEFAULT_FILETYPE_MAP = {
             \   'python': 'python',
             \ }
 
-let s:filetype_map = extend(copy(s:DEFAULT_FILETYPE_MAP), g:devdocs_filetype_map)
+function! s:related_to(ft) abort
+    return get(g:devdocs_filetype_map, a:ft, get(s:DEFAULT_FILETYPE_MAP, a:ft, ''))
+endfunction
 
 function! s:open_fallback(url) abort
     let url = shellescape(url)
@@ -74,7 +76,7 @@ endfunction
 function! devdocs#url(...) abort
     let query = get(a:, 1, '')
     let ft =  get(a:, 2, '_')
-    let doc = get(s:filetype_map, '*', get(s:filetype_map, ft, ''))
+    let doc = get(g:devdocs_filetype_map, '*', s:related_to(ft))
     return s:build_url(query, doc)
 endfunction
 
