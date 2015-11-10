@@ -9,6 +9,27 @@ This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome mult
 
 ## Cusomize
 
+### Mapping `K` to search under the word quickly
+
+devdocs.vim doesn't overrides any mapping by default.  You should define key mappings if you need.
+
+If you always want to override `K` mapping,
+
+```vim
+nmap K <Plug>(devdocs-under-cursor)
+```
+
+If you want to override `K` mapping in specific filetypes,
+
+```
+augroup plugin-devdocs
+  autocmd!
+  autocmd FileType c,cpp,rust,haskell,python nmap <buffer>K <Plug>(devdocs-under-cursor)
+augroup END
+```
+
+Above replaces `K` in C, C++, Rust, Haskell, and Python.
+
 ### Open with specific documenation on specific filetype
 
 You can customize relationship between Vim's filetype and documenation.
