@@ -4,6 +4,10 @@ set cpo&vim
 let s:V = vital#of('devdocs')
 let s:URI = s:V.import('Web.URI')
 
+let s:IS_WINDOWS = has('win32') || has('win64')
+let s:IS_OS_X = has('mac') || has('macunix') || has('gui_macvim')
+let s:IS_UNIX = !s:IS_OS_X && has('unix')
+
 let s:DEFAULT_FILETYPE_MAP = {
             \   'c': 'c',
             \   'cpp': 'cpp',
@@ -25,8 +29,25 @@ let s:DEFAULT_FILETYPE_MAP = {
 let s:filetype_map = extend(copy(s:DEFAULT_FILETYPE_MAP), g:devdocs_filetype_map)
 
 function! s:open_fallback(url) abort
-    " TODO
-    echoerr 'Currently devdocs.vim depends on open-browser.vim.  Fallback will be implemented for this.'
+    let url = shellescape(url)
+    if s:IS_UNIX
+        if executable('xdg-open')
+            call system('xdg-open ' . url)
+        else
+            " Fallback
+            call system('chromium ' . url)
+        endif
+    elseif s:IS_OS_X
+        call system('open ' . url)
+    elseif s:IS_WINDOWS
+        call system('start ' . url)
+    else
+        echoerr 'Unknown platform. devdocs.vim doesn''t know how to open URL: ' . url
+        return
+    endif
+    if v:shell_error
+        echoerr 'Error on opening URL: ' . url
+    endif
 endfunction
 
 function! s:build_query(query, doc) abort
