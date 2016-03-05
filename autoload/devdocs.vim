@@ -36,7 +36,7 @@ function! s:open_fallback(url) abort
     elseif s:IS_OS_X
         call system('open ' . url)
     elseif s:IS_WINDOWS
-        call system('start ' . url)
+        call system('cmd /q /c start "" ' . url)
     else
         echoerr 'Unknown platform. devdocs.vim doesn''t know how to open URL: ' . url
         return
