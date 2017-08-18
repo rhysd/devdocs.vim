@@ -2,7 +2,8 @@ devdocs.vim
 ===========
 [![Build Status](https://travis-ci.org/rhysd/devdocs.vim.svg)](https://travis-ci.org/rhysd/devdocs.vim)
 
-This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome multiple API documentation service.  You can open and search devdocs from Vim.
+This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome multiple API documentation
+service.  You can open and search devdocs from Vim.
 
 - Open and search devdocs using command `:DevDocs` or `:DevDocsAll`
 - Relate filetype to specific documentation.
@@ -13,7 +14,7 @@ This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome mult
 - `:DevDocs [query]` : Search with query with filetype related documentation (`query` can be omitted)
 - `:DevDocsAll [query]` : Search with query with all documentation (`query` can be omitted)
 
-## Cusomize
+## Customize
 
 ### Mapping `K` to search under the word quickly
 
@@ -36,9 +37,9 @@ augroup END
 
 Above replaces `K` in C, C++, Rust, Haskell, and Python.
 
-### Open with specific documenation on specific filetype
+### Open with specific documentaion on specific filetype
 
-You can customize relationship between Vim's filetype and documenation.
+You can customize relationship between Vim's filetype and documentaion.
 Below is an example of customization.
 
 ```vim
@@ -51,7 +52,8 @@ let g:devdocs_filetype_map = {
 
 With above configuration, `:DevDocs blah` searches Rails documentation on filetype `ruby`.
 
-`:DevDocsAll` searches all documentation ignoring filetype relation and below configuration explicitly disable this feature.
+`:DevDocsAll` searches all documentation ignoring filetype relation and below configuration explicitly
+disables this feature.
 
 ```vim
 let g:devdocs_filetype_map = { '*': '' }
@@ -59,7 +61,8 @@ let g:devdocs_filetype_map = { '*': '' }
 
 ### Open local devdocs
 
-You can easily [host local devdocs](https://github.com/Thibaut/devdocs#quick-start).  If your local devdocs is hosted to `localhost:9292`, devdocs.vim uses it by following configuration.
+You can easily [host local devdocs](https://github.com/Thibaut/devdocs#quick-start).  If your local
+devdocs is hosted at `localhost:9292`, devdocs.vim uses it by following configuration.
 
 ```vim
 let g:devdocs_host = 'localhost:9292'
