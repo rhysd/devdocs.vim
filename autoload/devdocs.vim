@@ -39,7 +39,9 @@ endfunction
 
 function! s:open_fallback(url) abort
     let url = s:shellescape(a:url)
-    if s:IS_UNIX
+    if g:devdocs_open_cmd !=# ''
+        call system(g:devdocs_open_cmd . ' ' . url)
+    elseif s:IS_UNIX
         if executable('xdg-open')
             call system('xdg-open ' . url)
         else

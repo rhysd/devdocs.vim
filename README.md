@@ -85,6 +85,21 @@ You can execute as below,
 :DevDocsReact componentDidMount
 ```
 
+### Open in non-default browser
+
+devdocs.vim opens URL with [open-browser.vim](https://github.com/tyru/open-browser.vim) at first.
+If it is not installed, it tries to open default browser. If you don't install open-browser.vim and
+want to use non-default browser, please use `g:devdocs_open_cmd` to specify what command should be
+used for opening a browser.
+
+```vim
+" Open devdocs.io in Safari on macOS
+let g:devdocs_open_cmd = 'open -a Safari'
+
+" Open devdocs.io in Firefox on Linux
+let g:devdocs_open_cmd = 'firefox'
+```
+
 ## License
 
 ```

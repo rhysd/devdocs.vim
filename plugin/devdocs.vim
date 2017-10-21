@@ -4,6 +4,7 @@ endif
 
 let g:devdocs_host = get(g:, 'devdocs_host', 'devdocs.io')
 let g:devdocs_filetype_map = get(g:, 'devdocs_filetype_map', {})
+let g:devdocs_open_cmd = get(g:, 'devdocs_open_cmd', '')
 
 command! -nargs=* DevDocs call devdocs#open(<q-args>, &l:ft)
 command! -nargs=* DevDocsAll call devdocs#open(<q-args>)
