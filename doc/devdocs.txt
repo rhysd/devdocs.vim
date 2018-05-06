@@ -16,7 +16,7 @@ License                 |devdocs.vim-license|
 ==============================================================================
 INTRODUCTION                                          *devdocs.vim-introduction*
 
-|devdocs.vim| is a Vim plugin for http://devdocs.io, which is an awesome
+|devdocs.vim| is a Vim plugin for https://devdocs.io, which is an awesome
 multiple API documentation service.  You can open and search devdocs from Vim.
 
 - Open and search devdocs using command |:DevDocs| or |:DevDocsAll|.

@@ -2,7 +2,7 @@ devdocs.vim
 ===========
 [![Build Status](https://travis-ci.org/rhysd/devdocs.vim.svg)](https://travis-ci.org/rhysd/devdocs.vim)
 
-This is a Vim plugin for [devdocs](http://devdocs.io/), which is an awesome multiple API documentation
+This is a Vim plugin for [devdocs](https://devdocs.io/), which is an awesome multiple API documentation
 service.  You can open and search devdocs from Vim.
 
 - Open and search devdocs using command `:DevDocs` or `:DevDocsAll`
@@ -66,6 +66,13 @@ devdocs is hosted at `localhost:9292`, devdocs.vim uses it by following configur
 
 ```vim
 let g:devdocs_host = 'localhost:9292'
+```
+
+If you use `http://` to host your DevDocs instance, please use `g:devdocs_url` variable to specify
+an `http://` scheme.
+
+```vim
+let g:devdocs_url = 'http://localhost:9292'
 ```
 
 ### Make a command for specific document

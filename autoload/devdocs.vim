@@ -76,7 +76,11 @@ function! s:query_url(base_url, query, doc) abort
 endfunction
 
 function! s:build_url(query, doc) abort
-    let url = 'http://' . g:devdocs_host
+    if exists('g:devdocs_url')
+        let url = g:devdocs_url
+    else
+        let url = 'https://' . g:devdocs_host
+    endif
     if a:query ==# ''
         if a:doc ==# ''
             return url

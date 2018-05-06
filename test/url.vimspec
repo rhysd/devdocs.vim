@@ -2,42 +2,42 @@ Describe devdocs
     Describe #url()
         It returns base URL if nothing is specified
             let u = devdocs#url()
-            Assert Equals(u, 'http://devdocs.io')
+            Assert Equals(u, 'https://devdocs.io')
             let u = devdocs#url('')
-            Assert Equals(u, 'http://devdocs.io')
+            Assert Equals(u, 'https://devdocs.io')
             let u = devdocs#url('', '')
-            Assert Equals(u, 'http://devdocs.io')
+            Assert Equals(u, 'https://devdocs.io')
         End
 
         It returns query URL if no document is specified
             let u = devdocs#url('blah')
-            Assert Equals(u, 'http://devdocs.io/#q=blah')
+            Assert Equals(u, 'https://devdocs.io/#q=blah')
             let u = devdocs#url('blah', '')
-            Assert Equals(u, 'http://devdocs.io/#q=blah')
+            Assert Equals(u, 'https://devdocs.io/#q=blah')
         End
 
         It returns documentation URL if no query is specified
             let u = devdocs#url('', 'cpp')
-            Assert Equals(u, 'http://devdocs.io/cpp/')
+            Assert Equals(u, 'https://devdocs.io/cpp/')
         End
 
         It returns base URL with non-related filetype
             let u = devdocs#url('', 'blah')
-            Assert Equals(u, 'http://devdocs.io')
+            Assert Equals(u, 'https://devdocs.io')
         End
 
         It builds query URL with query and document name
             for ft in ['c', 'cpp', 'haskell']
                 let u = devdocs#url('foo', ft)
-                Assert Equals(u, 'http://devdocs.io/#q=' . ft . '%20foo')
+                Assert Equals(u, 'https://devdocs.io/#q=' . ft . '%20foo')
             endfor
         End
 
         It encodes query
             let u = devdocs#url('あああ')
-            Assert Equals(u, 'http://devdocs.io/#q=%E3%81%82%E3%81%82%E3%81%82')
+            Assert Equals(u, 'https://devdocs.io/#q=%E3%81%82%E3%81%82%E3%81%82')
             let u = devdocs#url('あああ', 'cpp')
-            Assert Equals(u, 'http://devdocs.io/#q=cpp%20%E3%81%82%E3%81%82%E3%81%82')
+            Assert Equals(u, 'https://devdocs.io/#q=cpp%20%E3%81%82%E3%81%82%E3%81%82')
         End
     End
 
@@ -53,23 +53,23 @@ Describe devdocs
 
         It is marged with default map
             let u = devdocs#url('', 'cpp')
-            Assert Equals(u, 'http://devdocs.io/cpp/')
+            Assert Equals(u, 'https://devdocs.io/cpp/')
             let u = devdocs#url('foo', 'haskell')
-            Assert Equals(u, 'http://devdocs.io/#q=haskell%20foo')
+            Assert Equals(u, 'https://devdocs.io/#q=haskell%20foo')
         End
 
         It has higher priority than default config
             let g:devdocs_filetype_map = {'cpp': 'tsurapoyo'}
             let u = devdocs#url('', 'cpp')
-            Assert Equals(u, 'http://devdocs.io/tsurapoyo/')
+            Assert Equals(u, 'https://devdocs.io/tsurapoyo/')
         End
 
         It has special key '*' which matches everything
             let g:devdocs_filetype_map = {'*': 'tsurapoyo'}
             let u = devdocs#url('', 'cpp')
-            Assert Equals(u, 'http://devdocs.io/tsurapoyo/')
+            Assert Equals(u, 'https://devdocs.io/tsurapoyo/')
             let u = devdocs#url('', 'something')
-            Assert Equals(u, 'http://devdocs.io/tsurapoyo/')
+            Assert Equals(u, 'https://devdocs.io/tsurapoyo/')
         End
     End
 
@@ -84,6 +84,29 @@ Describe devdocs
         End
 
         It changes host of URL to localhost:9292
+            let u = devdocs#url()
+            Assert Equals(u, 'https://localhost:9292')
+            let u = devdocs#url('blah')
+            Assert Equals(u, 'https://localhost:9292/#q=blah')
+            let u = devdocs#url('', 'cpp')
+            Assert Equals(u, 'https://localhost:9292/cpp/')
+            for ft in ['c', 'cpp', 'haskell']
+                let u = devdocs#url('foo', ft)
+                Assert Equals(u, 'https://localhost:9292/#q=' . ft . '%20foo')
+            endfor
+        End
+    End
+
+    Describe g:devdocs_url
+        Before each
+            let g:devdocs_url = 'http://localhost:9292'
+        End
+
+        After each
+            unlet g:devdocs_url
+        End
+
+        It changes URL to localhost:9292
             let u = devdocs#url()
             Assert Equals(u, 'http://localhost:9292')
             let u = devdocs#url('blah')
