@@ -37,9 +37,9 @@ augroup END
 
 Above replaces `K` in C, C++, Rust, Haskell, and Python.
 
-### Open with specific documentaion on specific filetype
+### Open with specific documentation on specific filetype
 
-You can customize relationship between Vim's filetype and documentaion.
+You can customize relationship between Vim's filetype and documentation.
 Below is an example of customization.
 
 ```vim
